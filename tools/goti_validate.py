@@ -27,6 +27,7 @@ SCHEMA_BY_KIND = {
     "dependency-edge": "dependency-edge.schema.json",
     "agent-action-request": "agent-action-request.schema.json",
     "agent-custody-grant": "agent-custody-grant.schema.json",
+    "action-authorization-claims": "action-authorization-claims.schema.json",
 }
 
 
