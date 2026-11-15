@@ -10,6 +10,7 @@ A grant binds an organisation's agent to a named custodian subject, department, 
 - Action and resource scopes are additional constraints, not replacements for application-level object authorisation.
 - Tools listed in `transaction_controlled_tools` must supply an amount in minor currency units and an ISO 4217 currency code; missing or over-limit amounts are denied.
 - Revocation and replacement invalidate pending approvals bound to the previous grant.
+- Each action decision records the exact custody-grant identifier; approval is valid only while that same grant remains active. Replacing a grant does not silently transfer an earlier approval request to the new custodian.
 - The custodian subject should be selected from the organisation's authoritative identity provider. The current reference implementation accepts a supplied subject string; automated directory membership verification is an integration requirement, not yet claimed as implemented.
 
 ## Reference API
