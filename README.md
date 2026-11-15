@@ -13,6 +13,8 @@ GreenVera Open publishes the **GreenVera Open Trust Interface (GOTI)** draft and
 - [Run validator](tools/goti_validate.py)
 - [OpenSpace Python SDK](sdk/python/README.md)
 - [Developer quickstart](docs/OPENSPACE_PYTHON_QUICKSTART.md)
+- [GOTI conformance runner](docs/GOTI_CONFORMANCE_RUNNER.md)
+- [Commercial model and paid-pilot strategy](docs/REVENUE_MODEL.md)
 
 ## Principles
 Evidence before scores; portable records; vendor-neutral integration; tenant-controlled sharing; human accountability; append-only correction history; data minimisation; no implied certification.
