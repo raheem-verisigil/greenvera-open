@@ -47,3 +47,13 @@ This profile is a draft. Implementations should pin schema and mapping versions,
 ## Current reference implementation boundary
 
 GreenVera's private backend currently implements generic authenticated JSON ingestion, source-record hashes, idempotent retries, tenant-scoped connector records and append-only revisions. It does not yet ship native vendor connectors, CSV/XLSX parsing, scheduled sync, webhook signature verification or universal ERP integrations. Those capabilities require separately reviewed adapters and source-owner permission.
+
+## Evidence lineage edges
+
+Implementations may represent relationships as directed edges between tenant-owned objects. The initial vocabulary includes `derived_from`, `supports`, `produced_from`, `used_in`, `claims_about`, `supplied_by`, `shipped_as`, `reviewed_by` and `supersedes`.
+
+Each edge should preserve both object type and stable object identifier. A source-system record can therefore be linked to a material lot, production batch, product, evidence item or claim without replacing the original source system. Implementations should reject self-links and directed cycles, enforce tenant ownership on both endpoints, and bound graph traversal by depth and node count.
+
+A lineage response should disclose whether traversal was truncated. Relationship edges are declarations about how records are connected; they do not prove that a supplier assertion is accurate, a material is recycled, or a claim is legally compliant.
+
+See [dependency-edge schema](schemas/dependency-edge.schema.json) and [source-to-claim example](examples/dependency-edge-source-to-claim.json).
