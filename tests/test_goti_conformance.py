@@ -19,6 +19,8 @@ class GotiConformanceTests(unittest.TestCase):
                 kind = "source-record"
             elif "import-batch" in path.name:
                 kind = "import-batch"
+            elif "dependency-edge" in path.name:
+                kind = "dependency-edge"
             else:
                 continue
             with self.subTest(path=path.name):
