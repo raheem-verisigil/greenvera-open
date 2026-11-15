@@ -23,6 +23,7 @@ SCHEMA_BY_KIND = {
     "release-decision": "release-decision.schema.json",
     "source-record": "source-record.schema.json",
     "import-batch": "import-batch.schema.json",
+    "dependency-edge": "dependency-edge.schema.json",
 }
 
 
