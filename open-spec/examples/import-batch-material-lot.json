@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1.0",
+  "records": [
+    {
+      "schema_version": "0.1.0",
+      "source_record_id": "MATERIAL-LOT-00042",
+      "record_type": "material_lot",
+      "source_updated_at": "2026-11-14T12:00:00Z",
+      "source_issuer": "Example source ERP",
+      "payload": {
+        "material_code": "rPP",
+        "quantity": 1250,
+        "unit": "kg"
+      }
+    }
+  ]
+}
