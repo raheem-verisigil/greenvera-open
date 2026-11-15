@@ -1,0 +1,16 @@
+{
+  "schema_version": "goti-agent-action-request-1.0",
+  "organisation_id": "org-example",
+  "agent_id": "agent-finance-01",
+  "agent_version": "2.3.1",
+  "tool_name": "issue_refund",
+  "action_name": "refund",
+  "resource": "invoice/INV-1042",
+  "purpose": "Resolve approved customer refund",
+  "risk": "high",
+  "data_classification": "confidential",
+  "destination": "internal",
+  "action_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "trace_id": "trace-example-001",
+  "requested_at": "2026-11-15T21:00:00Z"
+}
