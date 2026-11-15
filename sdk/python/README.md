@@ -34,7 +34,7 @@ client = OpenSpaceClient(
 print(client.capabilities())
 ```
 
-See [the integration guide](../../docs/OPENSPACE_PYTHON_QUICKSTART.md) for agent registration, local tests, telemetry and release governance.
+Use GreenVeraToolGateway to wrap existing Python callables at the actual tool boundary. See [the integration guide](../../docs/INTELLIGENCE_CONTROL_PLANE_INTEGRATION.md) for custodian provisioning, production release gating, signed one-time action authorisations and emergency controls. For supplier evidence reuse, see [the Supplier Vault SDK guide](../../docs/SUPPLIER_VAULT_SDK.md).
 
 ## Data handling
 
@@ -46,6 +46,8 @@ The client sends the fields explicitly passed to its methods. Do not send prompt
 - Use HTTPS for remote endpoints.
 - Rotate and revoke credentials through the GreenVera onboarding team until self-service key management is released.
 - Pin dependency versions and review the SDK before production use.
+- A policy ALLOW receipt alone is not an execution token. Use authorize_and_execute() at the actual protected tool boundary.
+- The action signing secret is server-side only and must be stored in a managed secret store.
 - Report vulnerabilities privately to security@greenvera.earth.
 
 ## License
