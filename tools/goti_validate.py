@@ -70,7 +70,7 @@ def semantic_errors(kind: str, record: dict[str, Any]) -> list[str]:
         if isinstance(actor, dict) and actor.get("type") == "human_approver":
             if not actor.get("id") or not actor.get("role"):
                 errors.append("human_approver decisions require a non-empty actor id and role")
-        if actor.get("type") == "policy_engine" and record.get("decision") in {
+        if isinstance(actor, dict) and actor.get("type") == "policy_engine" and record.get("decision") in {
             "ALLOW", "ALLOW_WITH_CONDITIONS"
         } and not record.get("policy_version"):
             errors.append("policy_engine allow decisions require policy_version")
