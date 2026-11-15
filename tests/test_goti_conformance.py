@@ -15,6 +15,10 @@ class GotiConformanceTests(unittest.TestCase):
                 kind = "claim"
             elif "agent-evaluation" in path.name:
                 kind = "evaluation-run"
+            elif "source-record" in path.name:
+                kind = "source-record"
+            elif "import-batch" in path.name:
+                kind = "import-batch"
             else:
                 continue
             with self.subTest(path=path.name):
@@ -58,6 +62,18 @@ class GotiConformanceTests(unittest.TestCase):
         self.assertTrue(any("require a non-empty actor id and role" in e
                             for e in validate_record("release-decision", record)))
 
+    def test_source_record_requires_stable_identity_and_type(self):
+        record = {"schema_version": "0.1.0", "source_record_id": "LOT-1", "record_type": "material_lot", "payload": {"material_code": "rPP", "quantity": 10, "unit": "kg"}}
+        self.assertEqual(validate_record("source-record", record), [])
+        record["source_record_id"] = ""
+        self.assertTrue(validate_record("source-record", record))
+
+    def test_import_batch_is_bounded(self):
+        item = {"schema_version": "0.1.0", "source_record_id": "P-1", "record_type": "product", "payload": {"product_code": "P-1", "name": "Product"}}
+        record = {"schema_version": "0.1.0", "records": [item]}
+        self.assertEqual(validate_record("import-batch", record), [])
+        record["records"] = [item] * 101
+        self.assertTrue(validate_record("import-batch", record))
 
 if __name__ == "__main__":
     unittest.main()
