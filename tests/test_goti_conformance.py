@@ -135,3 +135,15 @@ class GotiConformanceTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+    def test_signed_action_authorization_claims_schema_and_example(self):
+        import jsonschema
+        root = Path(__file__).resolve().parents[1]
+        schema = json.loads((root / "open-spec/schemas/action-authorization-claims.schema.json").read_text())
+        example = json.loads((root / "open-spec/examples/action-authorization-claims.json").read_text())
+        jsonschema.Draft202012Validator.check_schema(schema)
+        jsonschema.validate(example, schema)
+        invalid = dict(example)
+        invalid["action_digest"] = "not-a-digest"
+        with self.assertRaises(jsonschema.ValidationError):
+            jsonschema.validate(invalid, schema)
