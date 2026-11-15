@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://greenvera.earth/spec/schemas/agent-custody-grant.schema.json",
+  "title": "GreenVera Agent Custody Grant",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "custodian_sub",
+    "custodian_name",
+    "department",
+    "purpose",
+    "allowed_tools",
+    "allowed_actions",
+    "transaction_controlled_tools",
+    "resource_prefixes",
+    "max_risk",
+    "max_data_classification",
+    "external_destinations_allowed",
+    "expires_at"
+  ],
+  "properties": {
+    "custodian_sub": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "description": "Stable subject identifier from the organisation's identity provider."
+    },
+    "custodian_name": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 180
+    },
+    "department": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 180
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 12,
+      "maxLength": 2000
+    },
+    "allowed_tools": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 160
+      },
+      "uniqueItems": true,
+      "maxItems": 100
+    },
+    "allowed_actions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 160
+      },
+      "uniqueItems": true,
+      "maxItems": 100
+    },
+    "transaction_controlled_tools": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 160
+      },
+      "uniqueItems": true,
+      "maxItems": 100
+    },
+    "resource_prefixes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 500
+      },
+      "uniqueItems": true,
+      "maxItems": 100
+    },
+    "max_risk": {
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "max_data_classification": {
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted"
+      ]
+    },
+    "external_destinations_allowed": {
+      "type": "boolean"
+    },
+    "max_transaction_minor": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "transaction_currency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[A-Z]{3}$"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}
