@@ -54,7 +54,7 @@ class OpenSpaceClient:
         timeout: float = 20,
         max_response_bytes: int = 2 * 1024 * 1024,
     ):
-        if not isinstance(api_key, str) or not api_key.startswith("gv_live_") or any(c in api_key for c in "\\r\\n"):
+        if not isinstance(api_key, str) or not api_key.startswith("gv_live_") or any(c in api_key for c in "\r\n"):
             raise ValueError("An issued GreenVera API key is required")
         if timeout <= 0 or timeout > 120:
             raise ValueError("timeout must be greater than 0 and at most 120 seconds")
@@ -99,6 +99,83 @@ class OpenSpaceClient:
             raise GreenVeraError(exc.code, body) from exc
         except urllib.error.URLError as exc:
             raise GreenVeraError(0, str(exc.reason)) from exc
+
+
+    @staticmethod
+    def action_payload(agent_id: str, version_id: str, tool_name: str, action_name: str,
+                       resource: str = "", risk: str = "medium",
+                       data_classification: str = "internal", destination: str = "internal",
+                       purpose: str = "", trace_id: str | None = None,
+                       amount_minor: int | None = None, currency: str | None = None):
+        """Return the complete canonical payload used by policy evaluation and signing."""
+        return {
+            "agent_id": agent_id, "version_id": version_id, "tool_name": tool_name,
+            "action_name": action_name, "resource": resource, "risk": risk,
+            "data_classification": data_classification, "destination": destination,
+            "purpose": purpose, "trace_id": trace_id,
+            "amount_minor": amount_minor, "currency": currency.upper() if currency else None,
+        }
+
+    def evaluate_action(self, agent_id: str, version_id: str, tool_name: str, action_name: str,
+                        resource: str = "", risk: str = "medium",
+                        data_classification: str = "internal", destination: str = "internal",
+                        purpose: str = "", trace_id: str | None = None,
+                        amount_minor: int | None = None, currency: str | None = None):
+        """Ask the organisation policy decision point before invoking a tool."""
+        payload = self.action_payload(agent_id, version_id, tool_name, action_name, resource,
+                                      risk, data_classification, destination, purpose,
+                                      trace_id, amount_minor, currency)
+        return self._request("POST", "/v1/control/actions/evaluate", payload)
+
+    def issue_action_authorization(self, decision_id: str, ttl_seconds: int = 30):
+        """Mint a short-lived, single-use signed authorisation for an ALLOW decision."""
+        return self._request("POST", f"/v1/control/decisions/{_segment(decision_id)}/authorization",
+                             {"ttl_seconds": ttl_seconds})
+
+    def consume_action_authorization(self, token: str, action_payload: dict):
+        """Consume the signed authorisation at the connected tool gateway before execution."""
+        return self._request("POST", "/v1/control/authorizations/consume",
+                             {"token": token, "action_payload": action_payload})
+
+    def authorize_and_execute(self, action_payload: dict, operation, ttl_seconds: int = 30):
+        """Evaluate, mint and consume a one-time authorisation, then call the protected tool."""
+        if not callable(operation):
+            raise TypeError("operation must be callable")
+        decision = self._request("POST", "/v1/control/actions/evaluate", action_payload)
+        if decision.get("decision") != "ALLOW":
+            raise GreenVeraError(403, f"Action not authorised: {decision.get('decision')}")
+        grant = self.issue_action_authorization(decision["decision_id"], ttl_seconds)
+        self.consume_action_authorization(grant["token"], action_payload)
+        return operation()
+
+    @staticmethod
+    def canonical_action_digest(action_payload: dict[str, Any]) -> str:
+        """Hash the exact canonical action request shape sent to the policy API."""
+        if not isinstance(action_payload, dict):
+            raise TypeError("action_payload must be a dictionary")
+        canonical = json.dumps(action_payload, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
+        return hashlib.sha256(canonical).hexdigest()
+
+    def execute_guarded(self, decision: dict, action_payload: dict[str, Any], operation):
+        """Fail closed: a local ALLOW receipt is not a signed, single-use gateway authorisation."""
+        raise GreenVeraError(
+            403,
+            "A policy receipt alone cannot authorise execution. Use authorize_and_execute() "
+            "to obtain and consume a signed, short-lived, single-use authorisation.",
+        )
+
+    def assign_custodian(self, agent_id: str, grant: dict):
+        """Assign the accountable human and bounded authority for an agent."""
+        return self._request("POST", f"/v1/agents/{_segment(agent_id)}/custodians", grant)
+
+    def list_custodians(self, agent_id: str):
+        return self._request("GET", f"/v1/agents/{_segment(agent_id)}/custodians")
+
+    def revoke_custodian(self, agent_id: str, grant_id: str, reason: str):
+        return self._request("POST", f"/v1/agents/{_segment(agent_id)}/custodians/{_segment(grant_id)}/revoke", {"reason": reason})
+
+    def my_custodial_agents(self):
+        return self._request("GET", "/v1/custodians/me/agents")
 
     def capabilities(self):
         return self._request("GET", "/v1/openspace/capabilities")
