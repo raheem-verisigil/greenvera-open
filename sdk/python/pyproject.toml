@@ -25,8 +25,8 @@ keywords = ["agent evaluation", "AI governance", "evidence", "trust", "observabi
 
 [project.urls]
 Homepage = "https://greenvera-website-production.up.railway.app/openspace.html"
-Documentation = "https://github.com/raheem-verisigil/greenvera-evidence-engine/blob/main/docs/OPENSPACE_PYTHON_QUICKSTART.md"
-Source = "https://github.com/raheem-verisigil/greenvera-evidence-engine/tree/main/sdk/python"
+Documentation = "https://github.com/raheem-verisigil/greenvera-open/blob/main/docs/OPENSPACE_PYTHON_QUICKSTART.md"
+Source = "https://github.com/raheem-verisigil/greenvera-open/tree/main/sdk/python"
 
 requires-python = ">=3.10"
 dependencies = []
