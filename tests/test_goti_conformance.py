@@ -90,5 +90,10 @@ class GotiConformanceTests(unittest.TestCase):
         record["relationship"] = "invented_relationship"
         self.assertTrue(validate_record("dependency-edge", record))
 
+
+    def test_dependency_edge_filename_is_not_misclassified_as_claim(self):
+        from tools.goti_validate import infer_kind
+        self.assertEqual(infer_kind(Path("dependency-edge-source-to-claim.json")), "dependency-edge")
+
 if __name__ == "__main__":
     unittest.main()
