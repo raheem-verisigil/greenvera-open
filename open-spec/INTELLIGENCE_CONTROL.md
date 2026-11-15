@@ -15,7 +15,7 @@ This draft interface defines portable policy inputs and decisions for AI agent a
 - Missing policy, timeout, invalid response, signature failure, expired receipt or digest mismatch means deny.
 - Decision receipts should be short-lived and bound to the exact action digest and policy hash.
 
-## Interoperability rules
+## Signed, single-use action authorisation\n\nAn ALLOW decision is not itself an execution token. The reference flow can mint a short-lived signed authorisation bound to the exact decision, organisation, agent version, policy hash, custodian grant, control epoch, tool, action, resource and canonical action digest. The connected Policy Enforcement Point must consume the authorisation exactly once before calling the protected tool. Replays, expired tokens, changed policy/custodian state, emergency suspension and payload mismatches are rejected. See [Signed Action Authorisation and Tool Gateway](ACTION_AUTHORIZATION.md) and [claims schema](schemas/action-authorization-claims.schema.json).\n\n## Interoperability rules
 - Preserve the organisation's identity and policy authority. A plugin cannot silently widen permissions.
 - Tool names and resource identifiers must use stable namespaces.
 - Classification and risk must be derived or validated by trusted organisation policy, not blindly accepted from the model.
