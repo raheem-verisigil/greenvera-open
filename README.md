@@ -31,3 +31,7 @@ This repository contains selected public specifications, SDK source and develope
 GOTI is Apache-2.0 under [open-spec/LICENSE](open-spec/LICENSE). The SDK is separately Apache-2.0 under [sdk/python/LICENSE](sdk/python/LICENSE). GreenVera names, logos and hosted services are not licensed by these files.
 
 - [GOTI interoperability profile](open-spec/INTEROPERABILITY.md)
+- [AI action governance interface](open-spec/INTELLIGENCE_CONTROL.md)
+- [Agent action request schema](open-spec/schemas/agent-action-request.schema.json)
+- [Agent action decision schema](open-spec/schemas/agent-action-decision.schema.json)
+- [Agent control policy schema](open-spec/schemas/agent-control-policy.schema.json)
