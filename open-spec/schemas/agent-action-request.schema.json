@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://greenvera.earth/spec/schemas/agent-action-request.schema.json",
+  "title": "GreenVera Agent Action Request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "organisation_id",
+    "agent_id",
+    "agent_version",
+    "tool_name",
+    "action_name",
+    "risk",
+    "data_classification",
+    "destination",
+    "action_digest",
+    "requested_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "goti-agent-action-1.0"
+    },
+    "organisation_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "agent_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "agent_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "tool_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "action_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "resource": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "purpose": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "risk": {
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "data_classification": {
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted"
+      ]
+    },
+    "destination": {
+      "enum": [
+        "internal",
+        "external"
+      ]
+    },
+    "action_digest": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{64}$"
+    },
+    "trace_id": {
+      "type": "string",
+      "maxLength": 128
+    },
+    "requested_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}
