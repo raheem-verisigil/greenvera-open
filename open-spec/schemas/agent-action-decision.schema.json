@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://greenvera.earth/spec/schemas/agent-action-decision.schema.json",
+  "title": "GreenVera Agent Action Decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "decision_id",
+    "decision",
+    "reason",
+    "action_digest",
+    "policy_id",
+    "policy_version",
+    "policy_hash",
+    "issued_at",
+    "expires_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "goti-agent-action-decision-1.0"
+    },
+    "decision_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "decision": {
+      "enum": [
+        "ALLOW",
+        "BLOCK",
+        "REQUIRE_HUMAN_APPROVAL",
+        "ALLOW_WITH_CONDITIONS"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "maxLength": 1000
+    },
+    "action_digest": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{64}$"
+    },
+    "policy_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "policy_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "policy_hash": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{64}$"
+    },
+    "approver_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 300
+      },
+      "maxItems": 30
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "signature": {
+      "type": "string",
+      "description": "Optional detached signature over the canonical decision envelope; verifier profile must be specified by implementation."
+    }
+  }
+}
