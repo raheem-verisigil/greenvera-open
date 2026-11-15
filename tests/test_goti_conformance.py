@@ -94,6 +94,15 @@ class GotiConformanceTests(unittest.TestCase):
 
 
 
+
+    def test_agent_custody_grant_schema_and_example(self):
+        import jsonschema
+        root = Path(__file__).resolve().parents[1]
+        schema = json.loads((root / "open-spec/schemas/agent-custody-grant.schema.json").read_text())
+        example = json.loads((root / "open-spec/examples/agent-custody-grant.json").read_text())
+        jsonschema.Draft202012Validator.check_schema(schema)
+        jsonschema.validate(example, schema)
+
     def test_agent_action_contract_schemas_and_example(self):
         import jsonschema
         root = Path(__file__).resolve().parents[1]
