@@ -98,7 +98,8 @@ def validate_record(kind: str, record: Any) -> list[str]:
 
 def infer_kind(path: Path) -> str | None:
     name = path.name.lower()
-    for kind in SCHEMA_BY_KIND:
+    # Prefer the most specific record kind; dependency-edge examples can also mention "claim".
+    for kind in sorted(SCHEMA_BY_KIND, key=len, reverse=True):
         if kind in name:
             return kind
     return None
