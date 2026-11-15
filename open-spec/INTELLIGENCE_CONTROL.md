@@ -25,3 +25,6 @@ This draft interface defines portable policy inputs and decisions for AI agent a
 
 ## Status
 Draft interface for implementer feedback. It is not a formal standard, certification, regulatory approval or universal runtime enforcement mechanism.
+
+
+For human accountability and bounded delegated permissions, see [Agent Custodian and Delegated Authority](AGENT_CUSTODIAN.md) and the [custody grant schema](schemas/agent-custody-grant.schema.json). The reference contract binds agent identity to a custodian, purpose, tools, actions, resource scope, risk ceiling, data classification, transaction limits and expiry.
