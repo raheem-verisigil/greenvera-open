@@ -25,6 +25,8 @@ SCHEMA_BY_KIND = {
     "source-record": "source-record.schema.json",
     "import-batch": "import-batch.schema.json",
     "dependency-edge": "dependency-edge.schema.json",
+    "agent-action-request": "agent-action-request.schema.json",
+    "agent-custody-grant": "agent-custody-grant.schema.json",
 }
 
 
