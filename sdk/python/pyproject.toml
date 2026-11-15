@@ -22,14 +22,13 @@ classifiers = [
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 keywords = ["agent evaluation", "AI governance", "evidence", "trust", "observability"]
+requires-python = ">=3.10"
+dependencies = []
 
 [project.urls]
 Homepage = "https://greenvera-website-production.up.railway.app/openspace.html"
 Documentation = "https://github.com/raheem-verisigil/greenvera-open/blob/main/docs/OPENSPACE_PYTHON_QUICKSTART.md"
 Source = "https://github.com/raheem-verisigil/greenvera-open/tree/main/sdk/python"
-
-requires-python = ">=3.10"
-dependencies = []
 
 [tool.setuptools.packages.find]
 where = ["."]
