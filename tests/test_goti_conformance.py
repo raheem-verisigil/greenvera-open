@@ -21,6 +21,8 @@ class GotiConformanceTests(unittest.TestCase):
                 kind = "import-batch"
             elif "dependency-edge" in path.name:
                 kind = "dependency-edge"
+            elif "action-authorization-claims" in path.name:
+                kind = "action-authorization-claims"
             else:
                 continue
             with self.subTest(path=path.name):
