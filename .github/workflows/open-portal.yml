@@ -1,0 +1,37 @@
+name: GreenVera Open portal
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "portal/**"
+      - ".github/workflows/open-portal.yml"
+  pull_request:
+    paths:
+      - "portal/**"
+      - ".github/workflows/open-portal.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build portal image
+        run: docker build -f portal/Dockerfile -t greenvera-open-portal:test .
+      - name: Start portal
+        run: docker run -d --name greenvera-open-portal -p 8080:8080 greenvera-open-portal:test
+      - name: Smoke test
+        run: |
+          for attempt in $(seq 1 20); do
+            if curl --fail --silent http://127.0.0.1:8080/healthz >/dev/null; then break; fi
+            sleep 2
+          done
+          curl --fail --silent http://127.0.0.1:8080/healthz | grep -q ok
+          curl --fail --silent http://127.0.0.1:8080/ | grep -q "GreenVera Open"
+      - name: Clean up
+        if: always()
+        run: docker rm -f greenvera-open-portal || true
