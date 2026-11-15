@@ -21,6 +21,8 @@ SCHEMA_BY_KIND = {
     "evidence": "evidence.schema.json",
     "evaluation-run": "evaluation-run.schema.json",
     "release-decision": "release-decision.schema.json",
+    "source-record": "source-record.schema.json",
+    "import-batch": "import-batch.schema.json",
 }
 
 
@@ -55,7 +57,7 @@ def _has_explicit_timezone(value: Any) -> bool:
 def semantic_errors(kind: str, record: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     for field in ("created_at", "started_at", "completed_at", "issued_at",
-                  "expires_at", "valid_until", "decided_at"):
+                  "expires_at", "valid_until", "decided_at", "source_updated_at"):
         if field in record and not _has_explicit_timezone(record[field]):
             errors.append(f"{field} must be an ISO 8601 timestamp with an explicit timezone")
 
