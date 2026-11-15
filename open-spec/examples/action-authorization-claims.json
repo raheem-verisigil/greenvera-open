@@ -1,0 +1,21 @@
+{
+  "iss": "https://greenvera.earth",
+  "aud": "greenvera-tool-gateway",
+  "sub": "integration:finance-agent",
+  "org": "org-example",
+  "decision_id": "decision-019",
+  "agent_id": "agent-019",
+  "version_id": "version-019",
+  "policy_id": "policy-019",
+  "policy_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "custody_grant_id": "custody-019",
+  "control_epoch": 4,
+  "action_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "tool_name": "read_invoice",
+  "action_name": "read",
+  "resource": "invoices/INV-100",
+  "jti": "single-use-random-token-id-019",
+  "iat": 1794780000,
+  "nbf": 1794780000,
+  "exp": 1794780030
+}
