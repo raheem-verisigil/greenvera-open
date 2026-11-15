@@ -19,7 +19,7 @@
   ],
   "properties": {
     "schema_version": {
-      "const": "goti-agent-action-1.0"
+      "const": "goti-agent-action-request-1.0"
     },
     "organisation_id": {
       "type": "string",
