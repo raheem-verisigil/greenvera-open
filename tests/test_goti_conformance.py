@@ -93,6 +93,33 @@ class GotiConformanceTests(unittest.TestCase):
         self.assertTrue(validate_record("dependency-edge", record))
 
 
+
+    def test_agent_action_contract_schemas_and_example(self):
+        import jsonschema
+        root = Path(__file__).resolve().parents[1]
+        schema_dir = root / "open-spec" / "schemas"
+        examples = root / "open-spec" / "examples"
+        request_schema = json.loads((schema_dir / "agent-action-request.schema.json").read_text())
+        request = json.loads((examples / "agent-action-request.json").read_text())
+        jsonschema.Draft202012Validator.check_schema(request_schema)
+        jsonschema.validate(request, request_schema)
+        for name in ("agent-action-decision", "agent-control-policy"):
+            schema = json.loads((schema_dir / f"{name}.schema.json").read_text())
+            jsonschema.Draft202012Validator.check_schema(schema)
+
+    def test_agent_action_contract_rejects_unknown_decision(self):
+        import jsonschema
+        root = Path(__file__).resolve().parents[1]
+        schema = json.loads((root / "open-spec" / "schemas" / "agent-action-decision.schema.json").read_text())
+        receipt = {
+            "schema_version":"goti-agent-action-decision-1.0","decision_id":"d-1",
+            "decision":"MAYBE","reason":"test","action_digest":"a"*64,
+            "policy_id":"p-1","policy_version":1,"policy_hash":"b"*64,
+            "issued_at":"2026-11-15T20:00:00Z","expires_at":"2026-11-15T20:00:30Z"
+        }
+        with self.assertRaises(jsonschema.ValidationError):
+            jsonschema.validate(receipt, schema)
+
     def test_dependency_edge_filename_is_not_misclassified_as_claim(self):
         from tools.goti_validate import infer_kind
         self.assertEqual(infer_kind(Path("dependency-edge-source-to-claim.json")), "dependency-edge")
