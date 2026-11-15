@@ -1,0 +1,27 @@
+{
+  "custodian_sub": "idp-subject-789",
+  "custodian_name": "Finance Operations Lead",
+  "department": "Finance",
+  "purpose": "Supervise supplier invoice reading and low-value reconciliation",
+  "allowed_tools": [
+    "read_invoice",
+    "reconcile_invoice"
+  ],
+  "allowed_actions": [
+    "read",
+    "reconcile"
+  ],
+  "transaction_controlled_tools": [
+    "issue_payment"
+  ],
+  "resource_prefixes": [
+    "invoices/",
+    "suppliers/"
+  ],
+  "max_risk": "medium",
+  "max_data_classification": "confidential",
+  "external_destinations_allowed": false,
+  "max_transaction_minor": 5000000,
+  "transaction_currency": "NGN",
+  "expires_at": "2027-01-15T12:00:00Z"
+}
