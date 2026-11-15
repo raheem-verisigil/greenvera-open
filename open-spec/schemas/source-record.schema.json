@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.greenvera.earth/v0.1/source-record.schema.json",
+  "title": "GOTI Source Record",
+  "description": "Normalised record imported from an authorised external source system. Acceptance does not imply verification.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source_record_id",
+    "record_type",
+    "payload"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "source_record_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 180
+    },
+    "record_type": {
+      "type": "string",
+      "enum": [
+        "supplier",
+        "material_lot",
+        "collection_event",
+        "processing_batch",
+        "production_batch",
+        "product",
+        "shipment",
+        "evidence",
+        "claim"
+      ]
+    },
+    "source_updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_issuer": {
+      "type": "string",
+      "maxLength": 180
+    },
+    "payload": {
+      "type": "object",
+      "minProperties": 1,
+      "maxProperties": 100,
+      "description": "Source-system fields preserved by the connector. No silent unit conversion or inferred values."
+    }
+  }
+}
