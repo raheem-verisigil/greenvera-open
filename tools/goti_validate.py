@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any
 
 from jsonschema import Draft202012Validator, FormatChecker
+from referencing import Registry, Resource
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_DIR = ROOT / "open-spec" / "schemas"
@@ -81,12 +82,26 @@ def semantic_errors(kind: str, record: dict[str, Any]) -> list[str]:
     return errors
 
 
+def local_schema_registry() -> Registry:
+    """Resolve GOTI schema references from this repository, never the network."""
+    registry = Registry()
+    for schema_path in SCHEMA_DIR.glob("*.schema.json"):
+        schema = load_json(schema_path)
+        schema_id = schema.get("$id")
+        if schema_id:
+            registry = registry.with_resource(schema_id, Resource.from_contents(schema))
+    return registry
+
+
+LOCAL_SCHEMA_REGISTRY = local_schema_registry()
+
+
 def validate_record(kind: str, record: Any) -> list[str]:
     if kind not in SCHEMA_BY_KIND:
         return [f"unknown record kind {kind!r}; expected one of {', '.join(SCHEMA_BY_KIND)}"]
     schema_path = SCHEMA_DIR / SCHEMA_BY_KIND[kind]
     schema = load_json(schema_path)
-    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    validator = Draft202012Validator(schema, format_checker=FormatChecker(), registry=LOCAL_SCHEMA_REGISTRY)
     errors = [
         f"{'/'.join(str(part) for part in issue.absolute_path) or '$'}: {issue.message}"
         for issue in validator.iter_errors(record)
