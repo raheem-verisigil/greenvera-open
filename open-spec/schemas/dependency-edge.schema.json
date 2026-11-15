@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.greenvera.earth/v0.1/dependency-edge.schema.json",
+  "title": "GOTI Dependency Edge",
+  "description": "A tenant-scoped, declared relationship between two evidence or assurance objects. It is lineage metadata, not proof of the relationship's truth.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "organisation_id",
+    "source",
+    "dependent",
+    "relationship",
+    "created_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "organisation_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "source": {
+      "$ref": "#/$defs/reference"
+    },
+    "dependent": {
+      "$ref": "#/$defs/reference"
+    },
+    "relationship": {
+      "type": "string",
+      "enum": [
+        "derived_from",
+        "supports",
+        "supported_by",
+        "produced_from",
+        "used_in",
+        "claims_about",
+        "supplied_by",
+        "shipped_as",
+        "reviewed_by",
+        "supersedes"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "$defs": {
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_type",
+        "object_id"
+      ],
+      "properties": {
+        "object_type": {
+          "type": "string",
+          "enum": [
+            "source_record",
+            "claim",
+            "evidence",
+            "assessment",
+            "review"
+          ]
+        },
+        "object_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
+      }
+    }
+  }
+}
