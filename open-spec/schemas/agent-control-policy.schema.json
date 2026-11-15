@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://greenvera.earth/spec/schemas/agent-control-policy.schema.json",
+  "title": "GreenVera Agent Control Policy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "policy_id",
+    "organisation_id",
+    "agent_id",
+    "version",
+    "allowed_tools",
+    "blocked_tools",
+    "human_approval_tools",
+    "high_risk_requires_approval",
+    "external_destinations_allowed",
+    "max_data_classification",
+    "policy_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "goti-agent-policy-1.0"
+    },
+    "policy_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "organisation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "agent_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "allowed_tools": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "blocked_tools": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "human_approval_tools": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "high_risk_requires_approval": {
+      "type": "boolean"
+    },
+    "external_destinations_allowed": {
+      "type": "boolean"
+    },
+    "max_data_classification": {
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted"
+      ]
+    },
+    "policy_hash": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{64}$"
+    }
+  }
+}
