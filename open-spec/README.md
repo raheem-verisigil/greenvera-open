@@ -22,3 +22,12 @@ Network: Organisation, SupplierRequest, PermissionGrant, Product, Material, Faci
 Initial schemas cover Claim, Evidence, EvaluationRun and ReleaseDecision. This draft is open to technical review and is not recognised by a regulator, standards body or certification programme.
 
 See [CONFORMANCE.md](CONFORMANCE.md) and [IMPLEMENTATION_GUIDE.md](IMPLEMENTATION_GUIDE.md). Specification and schemas are Apache-2.0 under [LICENSE](LICENSE).
+
+
+## Interoperability and source-system records
+
+GOTI now includes draft `SourceRecord` and `ImportBatch` schemas for vendors that want to connect existing ERP, collection, supplier, LCA, product-data or assurance systems without replacing them.
+
+The transport profile requires an organisation-authorised connector identity, bounded batches of 1–100 source records, an `Idempotency-Key` header, stable source identifiers, source issuer/update timestamps where available, immutable revisions when payloads change, and per-record validation outcomes.
+
+The schemas do not define a vendor's API, certify a connector or prove imported data. Vendors retain their source systems and decide what is shared. See [INTEROPERABILITY.md](INTEROPERABILITY.md), [source-record schema](schemas/source-record.schema.json) and [import-batch schema](schemas/import-batch.schema.json).
