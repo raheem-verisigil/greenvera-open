@@ -1,0 +1,15 @@
+{
+  "schema_version": "0.1.0",
+  "id": "edge-example-001",
+  "organisation_id": "org-example",
+  "source": {
+    "object_type": "source_record",
+    "object_id": "source-record-internal-001"
+  },
+  "dependent": {
+    "object_type": "claim",
+    "object_id": "claim-example-001"
+  },
+  "relationship": "supports",
+  "created_at": "2026-11-15T20:00:00Z"
+}
