@@ -31,3 +31,8 @@ GOTI now includes draft `SourceRecord` and `ImportBatch` schemas for vendors tha
 The transport profile requires an organisation-authorised connector identity, bounded batches of 1–100 source records, an `Idempotency-Key` header, stable source identifiers, source issuer/update timestamps where available, immutable revisions when payloads change, and per-record validation outcomes.
 
 The schemas do not define a vendor's API, certify a connector or prove imported data. Vendors retain their source systems and decide what is shared. See [INTEROPERABILITY.md](INTEROPERABILITY.md), [source-record schema](schemas/source-record.schema.json) and [import-batch schema](schemas/import-batch.schema.json).
+
+
+## AI action governance
+
+The draft Intelligence Control interface defines portable agent action requests, organisation policies and action decision receipts. See [INTELLIGENCE_CONTROL.md](INTELLIGENCE_CONTROL.md) and the `agent-action-*` / `agent-control-policy` schemas. These contracts are designed for independent runtime, gateway and enterprise-software integrations; enforcement remains the responsibility of an integrated policy enforcement point.
