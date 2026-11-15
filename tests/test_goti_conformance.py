@@ -75,5 +75,20 @@ class GotiConformanceTests(unittest.TestCase):
         record["records"] = [item] * 101
         self.assertTrue(validate_record("import-batch", record))
 
+
+    def test_dependency_edge_supports_source_to_claim_lineage(self):
+        record = {
+            "schema_version": "0.1.0",
+            "id": "edge-1",
+            "organisation_id": "org-1",
+            "source": {"object_type": "source_record", "object_id": "source-1"},
+            "dependent": {"object_type": "claim", "object_id": "claim-1"},
+            "relationship": "supports",
+            "created_at": "2026-11-15T20:00:00Z",
+        }
+        self.assertEqual(validate_record("dependency-edge", record), [])
+        record["relationship"] = "invented_relationship"
+        self.assertTrue(validate_record("dependency-edge", record))
+
 if __name__ == "__main__":
     unittest.main()
