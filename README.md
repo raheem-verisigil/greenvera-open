@@ -9,6 +9,8 @@ GreenVera Open publishes the **GreenVera Open Trust Interface (GOTI)** draft and
 - [JSON schemas](open-spec/schemas/)
 - [Examples](open-spec/examples/)
 - [Conformance profile](open-spec/CONFORMANCE.md)
+- [Reference conformance runner](docs/GOTI_CONFORMANCE_RUNNER.md)
+- [Run validator](tools/goti_validate.py)
 - [OpenSpace Python SDK](sdk/python/README.md)
 - [Developer quickstart](docs/OPENSPACE_PYTHON_QUICKSTART.md)
 
