@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://greenvera.earth/spec/schemas/action-authorization-claims.schema.json",
+  "title": "GreenVera Single-use Action Authorisation Claims",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "iss",
+    "aud",
+    "sub",
+    "org",
+    "decision_id",
+    "agent_id",
+    "version_id",
+    "policy_id",
+    "policy_hash",
+    "custody_grant_id",
+    "control_epoch",
+    "action_digest",
+    "tool_name",
+    "action_name",
+    "resource",
+    "jti",
+    "iat",
+    "nbf",
+    "exp"
+  ],
+  "properties": {
+    "iss": {
+      "type": "string",
+      "format": "uri"
+    },
+    "aud": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sub": {
+      "type": "string",
+      "minLength": 1
+    },
+    "org": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decision_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "agent_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "policy_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "policy_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "custody_grant_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "control_epoch": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "action_digest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "tool_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "action_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "resource": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "jti": {
+      "type": "string",
+      "minLength": 16,
+      "maxLength": 128
+    },
+    "iat": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "nbf": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "exp": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}
