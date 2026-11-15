@@ -1,0 +1,32 @@
+{
+  "schema_version": "0.1.0",
+  "id": "claim_demo_recycled_content_001",
+  "claim_text": "This packaging component contains 40% post-consumer recycled polymer by mass.",
+  "claim_type": "recycled_content",
+  "owner": {
+    "organisation_id": "org_demo_supplier",
+    "name": "Example Packaging Supplier"
+  },
+  "scope": {
+    "subject": "Packaging component SKU DEMO-001",
+    "product_id": "product_demo_001",
+    "facility_id": "facility_demo_001",
+    "geography": "Example jurisdiction",
+    "period_start": "2026-01-01",
+    "period_end": "2026-12-31",
+    "boundary": "Mass fraction of polymer input allocated to the finished component; excludes labels and secondary packaging"
+  },
+  "status": "under_review",
+  "created_at": "2026-11-15T12:00:00Z",
+  "evidence_refs": [
+    "evidence_demo_supplier_declaration_001",
+    "evidence_demo_batch_record_001"
+  ],
+  "limitations": [
+    "Illustrative example only; not independently verified.",
+    "Mass balance and chain-of-custody require additional evidence."
+  ],
+  "extensions": {
+    "demo": true
+  }
+}

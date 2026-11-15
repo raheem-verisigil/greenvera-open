@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "greenvera-openspace"
+version = "0.1.1"
+description = "Secure, model-agnostic agent trust evidence client and local TrustLab runner"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "GreenVera" }]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords = ["agent evaluation", "AI governance", "evidence", "trust", "observability"]
+
+[project.urls]
+Homepage = "https://greenvera-website-production.up.railway.app/openspace.html"
+Documentation = "https://github.com/raheem-verisigil/greenvera-evidence-engine/blob/main/docs/OPENSPACE_PYTHON_QUICKSTART.md"
+Source = "https://github.com/raheem-verisigil/greenvera-evidence-engine/tree/main/sdk/python"
+
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["greenvera_openspace*"]
+
+[project.optional-dependencies]
+langgraph = ["langchain-core>=0.3,<2"]
